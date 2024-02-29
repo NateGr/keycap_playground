@@ -35,12 +35,14 @@ use <profiles.scad>
 $fn = 32; // Mostly only applies to legends/fonts but increase as needed for greater resolution
 
 // Pick what you want to render. For more advanced options edit the RENDER variable directly (don't use the customizer).
+/*
 WHAT_TO_RENDER = "keycap+stem"; // [keycap, keycap+stem, legends]
 
 RENDER = WHAT_TO_RENDER == "keycap" ? ["keycap"] : (
          WHAT_TO_RENDER == "keycap+stem" ? ["keycap", "stem"] : (
          WHAT_TO_RENDER == "legends" ? ["legends"] : []
 ));
+*/
 // NOTE: I *hate* that OpenSCAD forces conditional assignment like that.  I can't stand the ternary operator!
 
 //RENDER = ["keycap", "stem"];
@@ -50,7 +52,7 @@ RENDER = WHAT_TO_RENDER == "keycap" ? ["keycap"] : (
 //RENDER = ["legends"];
 //RENDER = ["legends", "stem"];
 //RENDER = ["stem"];
-//RENDER = ["keycap", "stem", "legends"]; // For generating multi-material keycaps (using colorscad.sh)
+RENDER = ["keycap", "stem", "legends"]; // For generating multi-material keycaps (using colorscad.sh)
 //RENDER = ["underset_mask"]; // A thin layer under the top of they keycap meant to be darkened for underset legends
 // Want to render a whole row of keycaps/stems/legends at a time?  You can do that here:
 //RENDER = ["row", "row_stems"]; // For making whole keyboards at a time (with whole-keyboard inlaid art!)
@@ -58,6 +60,7 @@ RENDER = WHAT_TO_RENDER == "keycap" ? ["keycap"] : (
 //RENDER = ["row_legends"];
 //RENDER = ["row_stems"];
 //RENDER = ["row_underset_masks"];
+//RENDER = ["row","row_legends","row_stems"];
 
 // Lets you see the legends as a transparent object but also GREATLY improves preview rendering speed.
 VISUALIZE_LEGENDS = false; // Set to true to have the legends appear via %
@@ -69,7 +72,7 @@ BETWEENSPACE = 0.8; // The Betweenspace:  The void between realms...  And keycap
 
 // BASIC KEYCAP PARAMETERS
 // If you want to make a keycap using a common profile set this to one of: dcs, dss, dsa, kat, kam, riskeycap, gem:
-KEY_PROFILE = "riskeycap"; // [riskeycap, gem, dsa, dcs, dss, kat, kam]
+KEY_PROFILE = "dsa"; // [riskeycap, gem, dsa, dcs, dss, kat, kam]
 // Any value other than a supported profile (e.g. "dsa") will use the globals specified below.  In other words, an empty KEY_PROFILE means "just use the values specified here in this file."
 KEY_ROW = 1; // NOTE: For a spacebar make sure you also set DISH_INVERT=true
 // Some settings override profile settings but most will be ignored (if using a profile)
@@ -105,7 +108,7 @@ DISH_THICKNESS = 1; // Amount of material that will be placed under the bottommo
 // NOTE: Also, if you're printing white keycaps with transparent legends you want a thick dish (1.2+) to darken the non-transparent parts of the keycap
 DISH_TILT = 0; // How to rotate() the dish of the key (on the Y axis)
 DISH_TILT_CURVE = true; // If you want a more organic ("tentacle"!) shape set this to true
-DISH_INVERT = false; // Set to true for things like spacebars
+DISH_INVERT = false;// Set to true for things like spacebars
 // These two settings only apply to inverted spherical dishes and let you control how wide the X and Y curves will be (you'll have to play around with them to figure out what they do--it's too hard to describe here haha)
 DISH_INVERT_DIVISION_X = 4;
 DISH_INVERT_DIVISION_Y = 1;
@@ -177,7 +180,7 @@ HOMING_DOT_Z = -0.35; // 0 == Right at KEY_HEIGHT (dish type makes a big differe
 // LEGENDARY!
 LEGENDS = [ // As many legends as you want
 //    "A",
-//    "1", "!", // Just an example of multiple legends (uncomment to try it!)
+    "1", "!", // Just an example of multiple legends (uncomment to try it!)
 //    "☺", // Unicode characters work too!
 ];
 // NOTE: Legends might not look quite right until final render (F6)
@@ -190,7 +193,7 @@ LEGEND_FONTS = [ // Each legend can use its own font. If not specified the first
 ]; // Tip: "Noto" and "Code2000" have nearly every emoji/special/funky unicode chars
 LEGEND_FONT_SIZES = [ // Each legend can have its own font size
     5.5, // Position/index must match the index in LEGENDS (this is the first legend)
-    4, // Second legend...  etc
+    3, // Second legend...  etc
 ];
 LEGEND_CARVED = false; // Makes it so the bottom of the legend matches the shape of the dish (in case you want to translate() it up to the top of the keycap to finely control its depth).  Slows down rendering quite a bit so unless you have a specific need you'd best keep it set to false.
 /* NOTES ABOUT LEGEND TRANSLATION AND ROTATION
@@ -201,7 +204,7 @@ LEGEND_CARVED = false; // Makes it so the bottom of the legend matches the shape
 */
 LEGEND_TRANS = [ // You can translate() legends around however you like.
     [-0.1,0,0], // A good default (FYI: -0.1-0.15mm works around OpenSCAD's often-broken font centering)
-    [4.15,3,1],
+    [-4.15,2,1],
     [4.40,KEY_TOP_Y+2.25,0], // Top right (mostly)
 ];
 LEGEND_ROTATION = [ // How to rotate each legend. If not specified defaults to [0,0,0]
